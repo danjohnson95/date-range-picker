@@ -1,0 +1,8 @@
+.datepicker-container .row {
+    display: flex;
+}
+
+.datepicker-container .row .column {
+    width: 30px;
+    height: 30px;
+}
