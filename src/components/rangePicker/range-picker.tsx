@@ -11,6 +11,7 @@ export class RangePicker {
   @Prop() initialEndDate?: string;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
+  @Prop() disablePast?: boolean;
   @Prop() numberOfCalendars: number = 2;
 
   @State() activeMonth: Date;
@@ -127,6 +128,7 @@ export class RangePicker {
 
       html.push(
         <month-calendar
+          disablePast={this.disablePast}
           activeMonth={activeMonthStr}
           startDate={this.startDate ? this.startDate.toString() : null}
           endDate={this.endDate ? this.endDate.toString() : null}

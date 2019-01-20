@@ -10,6 +10,7 @@ export class MonthCalendar {
   @Prop() startDate?: string;
   @Prop() endDate?: string;
   @Prop() maybeEndDate?: string;
+  @Prop() disablePast: boolean;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() activeMonth: string;
@@ -133,10 +134,22 @@ export class MonthCalendar {
     return maybeStart.getTime() === day.getTime();
   }
 
+  shouldDisable (day: Date) {
+    const today = new Date();
+
+    today.setMinutes(0);
+    today.setHours(0);
+    today.setSeconds(0);
+    today.setMilliseconds(0);
+
+    return this.disablePast && day < today;
+  }
+
   renderCalendarDayBlock (day: Date) {
     return (
       <day-block
         class="column"
+        shouldDisable={this.shouldDisable(day)}
         outsideActiveMonth={this.isOutsideActiveMonth(day)}
         shouldHide={this.hideOutsiders && this.isOutsideActiveMonth(day)}
         isSelectedEndRange={this.isSelectedEndOfRange(day)}

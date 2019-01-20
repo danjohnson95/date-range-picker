@@ -6,6 +6,10 @@
     opacity: .4;
 }
 
+.disabled {
+    color:#ccc;
+}
+
 .maybe-start {
     background-color: #ccc;
 }

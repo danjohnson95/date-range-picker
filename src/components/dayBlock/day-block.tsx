@@ -13,6 +13,7 @@ export class DayBlock {
   @Prop() isMaybeRange: boolean;
   @Prop() isMaybeStart: boolean;
   @Prop() date: string;
+  @Prop() shouldDisable: boolean;
 
   @Event() clickDate: EventEmitter;
   @Event() mouseOverDate: EventEmitter;
@@ -34,6 +35,7 @@ export class DayBlock {
     this.dateObj = new Date(this.date);
 
     this.classList = {
+      'disabled': this.shouldDisable,
       'outside-active-month': this.outsideActiveMonth,
       'hide-block': this.shouldHide,
       'selected-end-range': this.isSelectedEndRange,
@@ -45,15 +47,21 @@ export class DayBlock {
   }
 
   handleClick () {
-    this.clickDate.emit(this.dateObj);
+    if (! this.shouldDisable) {
+      this.clickDate.emit(this.dateObj);
+    }
   }
 
   handleMouseOver () {
-    this.mouseOverDate.emit(this.dateObj);
+    if (! this.shouldDisable) {
+      this.mouseOverDate.emit(this.dateObj);
+    }
   }
 
   handleMouseLeave () {
-    this.mouseLeaveDate.emit(this.dateObj);
+    if (! this.shouldDisable) {
+      this.mouseLeaveDate.emit(this.dateObj);
+    }
   }
 
   getDateAsString () {

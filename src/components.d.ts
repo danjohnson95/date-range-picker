@@ -19,6 +19,7 @@ export namespace Components {
     'isSelectedBetweenRange': boolean;
     'isSelectedEndRange': boolean;
     'outsideActiveMonth': boolean;
+    'shouldDisable': boolean;
     'shouldHide': boolean;
   }
   interface DayBlockAttributes extends StencilHTMLAttributes {
@@ -31,11 +32,13 @@ export namespace Components {
     'onMouseLeaveDate'?: (event: CustomEvent) => void;
     'onMouseOverDate'?: (event: CustomEvent) => void;
     'outsideActiveMonth'?: boolean;
+    'shouldDisable'?: boolean;
     'shouldHide'?: boolean;
   }
 
   interface MonthCalendar {
     'activeMonth': string;
+    'disablePast': boolean;
     'endDate'?: string;
     'hideOutsiders': boolean;
     'maybeEndDate'?: string;
@@ -45,6 +48,7 @@ export namespace Components {
   }
   interface MonthCalendarAttributes extends StencilHTMLAttributes {
     'activeMonth'?: string;
+    'disablePast'?: boolean;
     'endDate'?: string;
     'hideOutsiders'?: boolean;
     'maybeEndDate'?: string;
@@ -61,6 +65,7 @@ export namespace Components {
 
   interface RangePicker {
     'calendarStart': string;
+    'disablePast'?: boolean;
     'hideOutsiders': boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
@@ -69,6 +74,7 @@ export namespace Components {
   }
   interface RangePickerAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
+    'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
