@@ -1,11 +1,11 @@
 import { Component, Prop, Listen, State, Watch, Event, EventEmitter } from '@stencil/core';
 
 @Component({
-  tag: 'range-picker',
-  styleUrl: 'range-picker.css',
+  tag: 'date-range-picker-popup',
+  styleUrl: 'popup.css',
   shadow: true
 })
-export class RangePicker {
+export class DateRangePickerPopup {
   @Prop() calendarStart?: string;
   @Prop() initialStartDate?: string;
   @Prop() initialEndDate?: string;
@@ -21,6 +21,8 @@ export class RangePicker {
   @State() maybeEndDate: Date;
 
   @Event() input: EventEmitter;
+  @Event() startDateSet: EventEmitter;
+  @Event() endDateSet: EventEmitter;
 
   componentWillLoad () {
     this.updateActiveMonth();
@@ -73,9 +75,13 @@ export class RangePicker {
     if (this.isRangePartiallySet() && this.isRangeAllowed(event.detail)) {
       this.endDate = event.detail;
       this.maybeEndDate = null;
+
+      this.endDateSet.emit(this.endDate);
     } else {
       this.startDate = event.detail;
       this.endDate = null;
+
+      this.startDateSet.emit(this.startDate);
     }
 
     if (this.isRangeSet()) {
