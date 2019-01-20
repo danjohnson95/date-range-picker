@@ -79,6 +79,7 @@ export namespace Components {
     'initialEndDate'?: string;
     'initialStartDate'?: string;
     'numberOfCalendars'?: number;
+    'onInput'?: (event: CustomEvent) => void;
     'startOnSundays'?: boolean;
   }
 }

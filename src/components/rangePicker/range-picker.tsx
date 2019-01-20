@@ -1,4 +1,4 @@
-import { Component, Prop, Listen, State, Watch } from '@stencil/core';
+import { Component, Prop, Listen, State, Watch, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'range-picker',
@@ -20,6 +20,7 @@ export class RangePicker {
   @State() maybeStartDate: Date;
   @State() maybeEndDate: Date;
 
+  @Event() input: EventEmitter;
 
   componentWillLoad () {
     let activeMonth;
@@ -100,6 +101,17 @@ export class RangePicker {
   @Watch('endDate')
   endDateChangedHandler () {
     this.maybeStartDate = null;
+
+    if (this.rangeSet()) {
+      this.input.emit({
+        startDate: this.startDate,
+        endDate: this.endDate
+      });
+    }
+  }
+
+  rangeSet () {
+    return this.startDate && this.endDate;
   }
 
   rangePartiallySet () {

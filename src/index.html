@@ -18,5 +18,14 @@
     number-of-calendars=2>
   </range-picker>
 
+  <script>
+    const elm = document.querySelector('range-picker');
+
+    elm.addEventListener('input', function (change) {
+      console.log('change');
+      console.log(change)
+    });
+  </script>
+
 </body>
 </html>
