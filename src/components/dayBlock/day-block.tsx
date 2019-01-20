@@ -10,6 +10,7 @@ export class DayBlock {
   @Prop() shouldHide: boolean;
   @Prop() isSelectedEndRange: boolean;
   @Prop() isSelectedBetweenRange: boolean;
+  @Prop() isMaybeRange: boolean;
   @Prop() date: string;
 
   @Event() clickDate: EventEmitter;
@@ -36,6 +37,7 @@ export class DayBlock {
       'hide-block': this.shouldHide,
       'selected-end-range': this.isSelectedEndRange,
       'selected-between-range': this.isSelectedBetweenRange,
+      'maybe-range': this.isMaybeRange,
       'column': true
     }
   }

@@ -13,3 +13,7 @@
 .selected-end-range {
     background-color: red;
 }
+
+.maybe-range {
+    background-color: blue;
+}

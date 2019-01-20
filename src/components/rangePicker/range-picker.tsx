@@ -17,6 +17,7 @@ export class RangePicker {
   @State() activeMonth: Date;
   @State() startDate: Date;
   @State() endDate: Date;
+  @State() maybeEndDate: Date
 
   constructor () {
     let activeMonth;
@@ -58,6 +59,7 @@ export class RangePicker {
   clickDateHandler (event: CustomEvent) {
     if (this.rangePartiallySet() && this.rangeIsAllowed(event.detail)) {
       this.endDate = event.detail;
+      this.maybeEndDate = null;
     } else {
       this.startDate = event.detail;
       this.endDate = null;
@@ -65,13 +67,17 @@ export class RangePicker {
   }
 
   @Listen('mouseOverDate')
-  mouseOverDateHandler () {
-
+  mouseOverDateHandler (event: CustomEvent) {
+    if (this.rangePartiallySet()) {
+      this.maybeEndDate = event.detail
+    }
   }
 
   @Listen('mouseLeaveDate')
   mouseLeaveDateHandler () {
-
+    if (this.rangePartiallySet()) {
+      this.maybeEndDate = null;
+    }
   }
 
   rangePartiallySet () {
@@ -109,6 +115,7 @@ export class RangePicker {
           activeMonth={activeMonthStr}
           startDate={this.startDate ? this.startDate.toString() : null}
           endDate={this.endDate ? this.endDate.toString() : null}
+          maybeEndDate={this.maybeEndDate ? this.maybeEndDate.toString() : null}
           hideOutsiders={this.hideOutsiders}
           startOnSundays={this.startOnSundays}>
         </month-calendar>

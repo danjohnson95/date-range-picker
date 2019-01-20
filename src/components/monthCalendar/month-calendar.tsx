@@ -9,6 +9,7 @@ import { Component, Prop } from '@stencil/core';
 export class MonthCalendar {
   @Prop() startDate?: string;
   @Prop() endDate?: string;
+  @Prop() maybeEndDate?: string;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() activeMonth: string;
@@ -107,6 +108,17 @@ export class MonthCalendar {
     return day > start && day < end
   }
 
+  isMaybeRange (day: Date): boolean {
+    if (this.startDate && this.maybeEndDate) {
+      const start = new Date(this.startDate)
+      const end = new Date(this.maybeEndDate)
+
+      return day > start && day <= end;
+    }
+
+    return false;
+  }
+
   renderCalendarDayBlock (day: Date) {
     return (
       <day-block
@@ -115,6 +127,7 @@ export class MonthCalendar {
         shouldHide={this.hideOutsiders && this.isOutsideActiveMonth(day)}
         isSelectedEndRange={this.isSelectedEndOfRange(day)}
         isSelectedBetweenRange={this.isSelectedBetweenRange(day)}
+        isMaybeRange={this.isMaybeRange(day)}
         date={day.toString()}>
       </day-block>
     )
