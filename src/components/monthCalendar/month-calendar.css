@@ -28,19 +28,3 @@
     height: 18px;
     line-height: 1.5;
 }
-
-.datepicker-container .row .column.hide-block {
-    visibility: hidden;
-}
-
-.datepicker-container .row .column.outside-active-month {
-    opacity: 50%;
-}
-
-.datepicker-container .row .column.selected-between-range {
-    background-color: green;
-}
-
-.datepicker-container .row .column.selected-end-range {
-    background-color: red;
-}

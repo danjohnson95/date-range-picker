@@ -7,8 +7,8 @@ import { Component, Prop } from '@stencil/core';
   shadow: true
 })
 export class MonthCalendar {
-  @Prop() startDate: string;
-  @Prop() endDate: string;
+  @Prop() startDate?: string;
+  @Prop() endDate?: string;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() activeMonth: string;
@@ -108,18 +108,15 @@ export class MonthCalendar {
   }
 
   renderCalendarDayBlock (day: Date) {
-    const classlist = {
-      'outside-active-month': this.isOutsideActiveMonth(day),
-      'hide-block': this.hideOutsiders && this.isOutsideActiveMonth(day),
-      'selected-end-range': this.isSelectedEndOfRange(day),
-      'selected-between-range': this.isSelectedBetweenRange(day),
-      'column': true
-    }
-
     return (
-      <div class={classlist}>
-        {day.getDate()}
-      </div>
+      <day-block
+        class="column"
+        outsideActiveMonth={this.isOutsideActiveMonth(day)}
+        shouldHide={this.hideOutsiders && this.isOutsideActiveMonth(day)}
+        isSelectedEndRange={this.isSelectedEndOfRange(day)}
+        isSelectedBetweenRange={this.isSelectedBetweenRange(day)}
+        date={day.toString()}>
+      </day-block>
     )
   }
 

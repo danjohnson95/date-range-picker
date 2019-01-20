@@ -12,14 +12,29 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface DayBlock {}
-  interface DayBlockAttributes extends StencilHTMLAttributes {}
+  interface DayBlock {
+    'date': string;
+    'isSelectedBetweenRange': boolean;
+    'isSelectedEndRange': boolean;
+    'outsideActiveMonth': boolean;
+    'shouldHide': boolean;
+  }
+  interface DayBlockAttributes extends StencilHTMLAttributes {
+    'date'?: string;
+    'isSelectedBetweenRange'?: boolean;
+    'isSelectedEndRange'?: boolean;
+    'onClickDate'?: (event: CustomEvent) => void;
+    'onMouseLeaveDate'?: (event: CustomEvent) => void;
+    'onMouseOverDate'?: (event: CustomEvent) => void;
+    'outsideActiveMonth'?: boolean;
+    'shouldHide'?: boolean;
+  }
 
   interface MonthCalendar {
     'activeMonth': string;
-    'endDate': string;
+    'endDate'?: string;
     'hideOutsiders': boolean;
-    'startDate': string;
+    'startDate'?: string;
     'startOnSundays': boolean;
   }
   interface MonthCalendarAttributes extends StencilHTMLAttributes {
@@ -39,17 +54,17 @@ export namespace Components {
   interface RangePicker {
     'calendarStart': string;
     'hideOutsiders': boolean;
+    'initialEndDate'?: string;
+    'initialStartDate'?: string;
     'numberOfCalendars': number;
-    'selectedEndDate': string;
-    'selectedStartDate': string;
     'startOnSundays': boolean;
   }
   interface RangePickerAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
     'hideOutsiders'?: boolean;
+    'initialEndDate'?: string;
+    'initialStartDate'?: string;
     'numberOfCalendars'?: number;
-    'selectedEndDate'?: string;
-    'selectedStartDate'?: string;
     'startOnSundays'?: boolean;
   }
 }

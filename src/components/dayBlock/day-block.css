@@ -1,11 +1,15 @@
-.outside-active-month {
-    opacity: 50%;
+.hide-block {
+    visibility: hidden;
 }
 
-.selected-end-range {
-    background-color: red;
+.outside-active-month {
+    opacity: .4;
 }
 
 .selected-between-range {
     background-color: green;
+}
+
+.selected-end-range {
+    background-color: red;
 }

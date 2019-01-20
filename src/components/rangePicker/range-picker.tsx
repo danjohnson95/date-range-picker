@@ -8,21 +8,23 @@ import { Component, Prop, Listen, State } from '@stencil/core';
 })
 export class RangePicker {
   @Prop() calendarStart: string;
-  @Prop() selectedStartDate: string;
-  @Prop() selectedEndDate: string;
+  @Prop() initialStartDate?: string;
+  @Prop() initialEndDate?: string;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() numberOfCalendars: number = 2;
 
   @State() activeMonth: Date;
+  @State() startDate: Date;
+  @State() endDate: Date;
 
   constructor () {
     let activeMonth;
 
     if (this.calendarStart) {
       activeMonth = new Date(this.calendarStart);
-    } else if (this.selectedStartDate) {
-      activeMonth = new Date(this.selectedStartDate);
+    } else if (this.initialStartDate) {
+      activeMonth = new Date(this.initialStartDate);
     } else {
       activeMonth = new Date();
     }
@@ -30,6 +32,14 @@ export class RangePicker {
     activeMonth.setDate(1);
 
     this.activeMonth = activeMonth;
+
+    if (this.initialStartDate) {
+      this.startDate = new Date(this.initialStartDate);
+    }
+
+    if (this.initialEndDate) {
+      this.endDate = new Date(this.initialEndDate);
+    }
   }
 
   @Listen('previousMonth')
@@ -42,6 +52,27 @@ export class RangePicker {
   nextMonthHandler () {
     // Increment the first and last active month.
     this.moveMonth(true);
+  }
+
+  @Listen('clickDate')
+  clickDateHandler (event: CustomEvent) {
+    // Do we have both a start date and an end date, or neither?
+    if ((this.startDate && this.endDate) || (!this.startDate && !this.endDate)) {
+      // Reset the selection.
+      this.startDate = event.detail;
+    } else if (this.startDate && ! this.endDate) {
+      this.endDate = event.detail;
+    }
+  }
+
+  @Listen('mouseOverDate')
+  mouseOverDateHandler () {
+
+  }
+
+  @Listen('mouseLeaveDate')
+  mouseLeaveDateHandler () {
+
   }
 
   moveMonth (forward: boolean = true) {
@@ -69,8 +100,8 @@ export class RangePicker {
       html.push(
         <month-calendar
           activeMonth={activeMonthStr}
-          startDate={this.selectedStartDate}
-          endDate={this.selectedEndDate}
+          startDate={this.startDate ? this.startDate.toString() : null}
+          endDate={this.endDate ? this.endDate.toString() : null}
           hideOutsiders={this.hideOutsiders}
           startOnSundays={this.startOnSundays}>
         </month-calendar>
@@ -82,10 +113,12 @@ export class RangePicker {
 
   render () {
     return (
+      <div class="outer-range-picker">
         <div class="range-picker">
           <range-navigation></range-navigation>
           {this.makeCalendars()}
         </div>
+      </div>
     );
   }
 }
