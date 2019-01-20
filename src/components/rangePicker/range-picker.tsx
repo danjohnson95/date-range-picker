@@ -56,12 +56,11 @@ export class RangePicker {
 
   @Listen('clickDate')
   clickDateHandler (event: CustomEvent) {
-    // Do we have both a start date and an end date, or neither?
-    if ((this.startDate && this.endDate) || (!this.startDate && !this.endDate)) {
-      // Reset the selection.
-      this.startDate = event.detail;
-    } else if (this.startDate && ! this.endDate) {
+    if (this.rangePartiallySet() && this.rangeIsAllowed(event.detail)) {
       this.endDate = event.detail;
+    } else {
+      this.startDate = event.detail;
+      this.endDate = null;
     }
   }
 
@@ -73,6 +72,14 @@ export class RangePicker {
   @Listen('mouseLeaveDate')
   mouseLeaveDateHandler () {
 
+  }
+
+  rangePartiallySet () {
+    return this.startDate && ! this.endDate;
+  }
+
+  rangeIsAllowed (date: Date): boolean {
+    return date > this.startDate
   }
 
   moveMonth (forward: boolean = true) {
