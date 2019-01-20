@@ -21,7 +21,7 @@ export class RangePicker {
   @State() maybeEndDate: Date;
 
 
-  constructor () {
+  componentWillLoad () {
     let activeMonth;
 
     if (this.calendarStart) {

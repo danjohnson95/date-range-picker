@@ -16,14 +16,16 @@ export class MonthCalendar {
   @Prop() activeMonth: string;
   @Prop() maybeStartDate: string;
 
+  private weekdaysOrdered: string[];
+
   private weekdays: string[] = [
+    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday',
-    'Sunday'
+    'Saturday'
   ]
 
   private months: string[] = [
@@ -40,6 +42,14 @@ export class MonthCalendar {
     'November',
     'December'
   ]
+
+  componentWillLoad () {
+    this.weekdaysOrdered = this.weekdays;
+
+    if (! this.startOnSundays) {
+      this.weekdaysOrdered.push(this.weekdaysOrdered.shift());
+    }
+  }
 
   render() {
     return this.renderMarkupForCalendar()
@@ -80,7 +90,7 @@ export class MonthCalendar {
     return (
       <div class="row weekday-header">
       {
-        this.weekdays.map((day) => {
+        this.weekdaysOrdered.map((day) => {
           return (
             <div class="column">{day.substr(0, 3)}</div>
           )
@@ -182,9 +192,10 @@ export class MonthCalendar {
   getStartOfMonth (): Date {
     const now = this.getActiveMonth()
 
-    // Go back to the previous Monday.
+    // Go back to the previous Monday, or Sunday if mode enabled.
+    const weekStart = (this.startOnSundays ? 0 : 1);
     const currentDay = now.getDay();
-    const distance = 1 - currentDay;
+    const distance = weekStart - currentDay;
 
     now.setDate(now.getDate() + distance);
 
