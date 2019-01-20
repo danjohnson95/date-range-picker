@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, Event, EventEmitter } from '@stencil/core';
 
 @Component({
     tag: 'range-navigation',
@@ -7,11 +7,22 @@ import { Component } from '@stencil/core';
 })
 
 export class RangeNavigation {
+    @Event() previousMonth: EventEmitter;
+    @Event() nextMonth: EventEmitter;
+
+    emitPrevousMonth () {
+        this.previousMonth.emit();
+    }
+
+    emitNextMonth () {
+        this.nextMonth.emit();
+    }
+
     render () {
         return (
             <div>
-                <button>Back</button>
-                <button>Next</button>
+                <button onClick={() => this.emitPrevousMonth()}>Back</button>
+                <button onClick={() => this.emitNextMonth()}>Next</button>
             </div>
         )
     }

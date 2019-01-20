@@ -31,20 +31,25 @@ export namespace Components {
   }
 
   interface RangeNavigation {}
-  interface RangeNavigationAttributes extends StencilHTMLAttributes {}
+  interface RangeNavigationAttributes extends StencilHTMLAttributes {
+    'onNextMonth'?: (event: CustomEvent) => void;
+    'onPreviousMonth'?: (event: CustomEvent) => void;
+  }
 
   interface RangePicker {
     'calendarStart': string;
-    'endDate': string;
     'hideOutsiders': boolean;
-    'startDate': string;
+    'numberOfCalendars': number;
+    'selectedEndDate': string;
+    'selectedStartDate': string;
     'startOnSundays': boolean;
   }
   interface RangePickerAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
-    'endDate'?: string;
     'hideOutsiders'?: boolean;
-    'startDate'?: string;
+    'numberOfCalendars'?: number;
+    'selectedEndDate'?: string;
+    'selectedStartDate'?: string;
     'startOnSundays'?: boolean;
   }
 }

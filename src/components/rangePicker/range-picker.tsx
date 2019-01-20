@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop, Listen, State } from '@stencil/core';
 // import { format } from '../../utils/utils';
 
 @Component({
@@ -8,62 +8,83 @@ import { Component, Prop } from '@stencil/core';
 })
 export class RangePicker {
   @Prop() calendarStart: string;
-  @Prop() startDate: string;
-  @Prop() endDate: string;
+  @Prop() selectedStartDate: string;
+  @Prop() selectedEndDate: string;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
+  @Prop() numberOfCalendars: number = 2;
 
-  firstActiveMonth: string;
-  lastActiveMonth: string;
+  @State() activeMonth: Date;
 
-  firstCalendar: HTMLElement
+  constructor () {
+    let activeMonth;
 
-  getActiveMonthForFirstCalendar (): Date {
-    if (!this.startDate) {
-      this.startDate = new Date().toString();
+    if (this.calendarStart) {
+      activeMonth = new Date(this.calendarStart);
+    } else if (this.selectedStartDate) {
+      activeMonth = new Date(this.selectedStartDate);
+    } else {
+      activeMonth = new Date();
     }
 
-    const date = new Date(this.startDate);
+    activeMonth.setDate(1);
 
-    date.setDate(1);
-
-    return date;
+    this.activeMonth = activeMonth;
   }
 
-  getActiveMonthForLastCalendar (): Date {
-    const firstCal = this.getActiveMonthForFirstCalendar();
+  @Listen('previousMonth')
+  previousMonthHandler () {
+    // Decrement the first and last active month.
+    this.moveMonth(false);
+  }
 
-    firstCal.setMonth(firstCal.getMonth() + 1);
+  @Listen('nextMonth')
+  nextMonthHandler () {
+    // Increment the first and last active month.
+    this.moveMonth(true);
+  }
 
-    return firstCal;
+  moveMonth (forward: boolean = true) {
+    const newMonth = new Date(+this.activeMonth);
+    const increment = forward ? 1 : -1;
+
+    newMonth.setMonth(newMonth.getMonth() + increment);
+
+    this.activeMonth = newMonth;
   }
 
   getMonthYearAsString (date: Date): string {
     return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
   }
 
-  render () {
-    this.firstActiveMonth = this.getMonthYearAsString(this.getActiveMonthForFirstCalendar());
-    this.lastActiveMonth = this.getMonthYearAsString(this.getActiveMonthForLastCalendar());
+  makeCalendars () {
+    let html = [];
 
+    for (let i = 0; i < this.numberOfCalendars; i++) {
+      let activeMonth = new Date(+this.activeMonth)
+      activeMonth.setMonth(activeMonth.getMonth() + i);
+
+      const activeMonthStr = this.getMonthYearAsString(activeMonth);
+
+      html.push(
+        <month-calendar
+          activeMonth={activeMonthStr}
+          startDate={this.selectedStartDate}
+          endDate={this.selectedEndDate}
+          hideOutsiders={this.hideOutsiders}
+          startOnSundays={this.startOnSundays}>
+        </month-calendar>
+      )
+    }
+
+    return html;
+  }
+
+  render () {
     return (
         <div class="range-picker">
           <range-navigation></range-navigation>
-          <month-calendar
-            activeMonth={this.firstActiveMonth}
-            startDate={this.startDate}
-            endDate={this.endDate}
-            hideOutsiders={this.hideOutsiders}
-            startOnSundays={this.startOnSundays}>
-          </month-calendar>
-
-          <month-calendar
-            activeMonth={this.lastActiveMonth}
-            startDate={this.startDate}
-            endDate={this.endDate}
-            hideOutsiders={this.hideOutsiders}
-            startOnSundays={this.startOnSundays}>
-          </month-calendar>
+          {this.makeCalendars()}
         </div>
     );
   }
