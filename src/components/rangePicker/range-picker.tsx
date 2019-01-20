@@ -6,12 +6,12 @@ import { Component, Prop, Listen, State, Watch, Event, EventEmitter } from '@ste
   shadow: true
 })
 export class RangePicker {
-  @Prop() calendarStart: string;
+  @Prop() calendarStart?: string;
   @Prop() initialStartDate?: string;
   @Prop() initialEndDate?: string;
-  @Prop() startOnSundays: boolean;
-  @Prop() hideOutsiders: boolean;
-  @Prop() disablePast?: boolean;
+  @Prop() startOnSundays?: boolean = false;
+  @Prop() hideOutsiders?: boolean = true;
+  @Prop() disablePast?: boolean = true;
   @Prop() numberOfCalendars: number = 2;
 
   @State() activeMonth: Date;
@@ -23,7 +23,17 @@ export class RangePicker {
   @Event() input: EventEmitter;
 
   componentWillLoad () {
-    let activeMonth;
+    this.updateActiveMonth();
+    this.updateSelectedRange();
+  }
+
+  componentWillUpdate () {
+    // this.updateActiveMonth();
+    // this.updateSelectedRange();
+  }
+
+  private updateActiveMonth (): void {
+    let activeMonth: Date;
 
     if (this.calendarStart) {
       activeMonth = new Date(this.calendarStart);
@@ -36,7 +46,9 @@ export class RangePicker {
     activeMonth.setDate(1);
 
     this.activeMonth = activeMonth;
+  }
 
+  private updateSelectedRange (): void {
     if (this.initialStartDate) {
       this.startDate = new Date(this.initialStartDate);
     }
@@ -47,20 +59,18 @@ export class RangePicker {
   }
 
   @Listen('previousMonth')
-  previousMonthHandler () {
-    // Decrement the first and last active month.
+  previousMonthHandler (): void {
     this.moveMonth(false);
   }
 
   @Listen('nextMonth')
-  nextMonthHandler () {
-    // Increment the first and last active month.
+  nextMonthHandler (): void {
     this.moveMonth(true);
   }
 
   @Listen('clickDate')
-  clickDateHandler (event: CustomEvent) {
-    if (this.rangePartiallySet() && this.rangeIsAllowed(event.detail)) {
+  clickDateHandler (event: CustomEvent): void {
+    if (this.isRangePartiallySet() && this.isRangeAllowed(event.detail)) {
       this.endDate = event.detail;
       this.maybeEndDate = null;
     } else {
@@ -68,7 +78,7 @@ export class RangePicker {
       this.endDate = null;
     }
 
-    if (this.rangeSet()) {
+    if (this.isRangeSet()) {
       this.input.emit({
         startDate: this.startDate,
         endDate: this.endDate
@@ -77,23 +87,23 @@ export class RangePicker {
   }
 
   @Listen('mouseOverDate')
-  mouseOverDateHandler (event: CustomEvent) {
-    if (this.rangePartiallySet()) {
+  mouseOverDateHandler (event: CustomEvent): void {
+    if (this.isRangePartiallySet()) {
       this.maybeEndDate = event.detail
     }
     
-    if (this.rangePartiallySet() && event.detail < this.startDate) {
+    if (this.isRangePartiallySet() && event.detail < this.startDate) {
       this.maybeStartDate = event.detail;
     }
 
-    if (! this.rangePartiallySet()) {
+    if (! this.isRangePartiallySet()) {
       this.maybeStartDate = event.detail;
     }
   }
 
   @Listen('mouseLeaveDate')
-  mouseLeaveDateHandler () {
-    if (this.rangePartiallySet()) {
+  mouseLeaveDateHandler (): void {
+    if (this.isRangePartiallySet()) {
       this.maybeEndDate = null;
     }
 
@@ -101,7 +111,7 @@ export class RangePicker {
   }
 
   @Watch('startDate')
-  startDateChangedHandler () {
+  startDateChangedHandler (): void {
     this.maybeStartDate = null;
   }
 
@@ -110,32 +120,32 @@ export class RangePicker {
     this.maybeStartDate = null;
   }
 
-  rangeSet () {
-    return this.startDate && this.endDate;
+  private isRangeSet (): boolean {
+    return this.startDate !== null && this.endDate !== null;
   }
 
-  rangePartiallySet () {
-    return this.startDate && ! this.endDate;
+  private isRangePartiallySet (): boolean {
+    return this.startDate !== null && this.endDate === null;
   }
 
-  rangeIsAllowed (date: Date): boolean {
+  private isRangeAllowed (date: Date): boolean {
     return date > this.startDate
   }
 
-  moveMonth (forward: boolean = true) {
-    const newMonth = new Date(+this.activeMonth);
-    const increment = forward ? 1 : -1;
+  private moveMonth (forward: boolean = true): void {
+    const newMonth: Date = new Date(+this.activeMonth);
+    const increment: number = forward ? 1 : -1;
 
     newMonth.setMonth(newMonth.getMonth() + increment);
 
     this.activeMonth = newMonth;
   }
 
-  getMonthYearAsString (date: Date): string {
+  private getMonthYearAsString (date: Date): string {
     return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
   }
 
-  makeCalendars () {
+  private makeCalendars () {
     let html = [];
 
     for (let i = 0; i < this.numberOfCalendars; i++) {

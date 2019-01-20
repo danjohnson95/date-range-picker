@@ -64,13 +64,13 @@ export namespace Components {
   }
 
   interface RangePicker {
-    'calendarStart': string;
+    'calendarStart'?: string;
     'disablePast'?: boolean;
-    'hideOutsiders': boolean;
+    'hideOutsiders'?: boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
     'numberOfCalendars': number;
-    'startOnSundays': boolean;
+    'startOnSundays'?: boolean;
   }
   interface RangePickerAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
