@@ -72,7 +72,13 @@ export class RangePicker {
   mouseOverDateHandler (event: CustomEvent) {
     if (this.rangePartiallySet()) {
       this.maybeEndDate = event.detail
-    } else {
+    }
+    
+    if (this.rangePartiallySet() && event.detail < this.startDate) {
+      this.maybeStartDate = event.detail;
+    }
+
+    if (! this.rangePartiallySet()) {
       this.maybeStartDate = event.detail;
     }
   }
