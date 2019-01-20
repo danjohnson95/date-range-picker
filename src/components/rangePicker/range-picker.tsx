@@ -67,6 +67,13 @@ export class RangePicker {
       this.startDate = event.detail;
       this.endDate = null;
     }
+
+    if (this.rangeSet()) {
+      this.input.emit({
+        startDate: this.startDate,
+        endDate: this.endDate
+      });
+    }
   }
 
   @Listen('mouseOverDate')
@@ -101,13 +108,6 @@ export class RangePicker {
   @Watch('endDate')
   endDateChangedHandler () {
     this.maybeStartDate = null;
-
-    if (this.rangeSet()) {
-      this.input.emit({
-        startDate: this.startDate,
-        endDate: this.endDate
-      });
-    }
   }
 
   rangeSet () {
