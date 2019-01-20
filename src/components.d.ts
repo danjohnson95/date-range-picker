@@ -12,27 +12,64 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface DayBlock {}
+  interface DayBlockAttributes extends StencilHTMLAttributes {}
+
   interface MonthCalendar {
-    'endDate': Date;
-    'startDate': Date;
-    'startOnSundays': Boolean;
+    'activeMonth': string;
+    'endDate': string;
+    'hideOutsiders': boolean;
+    'startDate': string;
+    'startOnSundays': boolean;
   }
   interface MonthCalendarAttributes extends StencilHTMLAttributes {
-    'endDate'?: Date;
-    'startDate'?: Date;
-    'startOnSundays'?: Boolean;
+    'activeMonth'?: string;
+    'endDate'?: string;
+    'hideOutsiders'?: boolean;
+    'startDate'?: string;
+    'startOnSundays'?: boolean;
+  }
+
+  interface RangeNavigation {}
+  interface RangeNavigationAttributes extends StencilHTMLAttributes {}
+
+  interface RangePicker {
+    'calendarStart': string;
+    'endDate': string;
+    'hideOutsiders': boolean;
+    'startDate': string;
+    'startOnSundays': boolean;
+  }
+  interface RangePickerAttributes extends StencilHTMLAttributes {
+    'calendarStart'?: string;
+    'endDate'?: string;
+    'hideOutsiders'?: boolean;
+    'startDate'?: string;
+    'startOnSundays'?: boolean;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
+    'DayBlock': Components.DayBlock;
     'MonthCalendar': Components.MonthCalendar;
+    'RangeNavigation': Components.RangeNavigation;
+    'RangePicker': Components.RangePicker;
   }
 
   interface StencilIntrinsicElements {
+    'day-block': Components.DayBlockAttributes;
     'month-calendar': Components.MonthCalendarAttributes;
+    'range-navigation': Components.RangeNavigationAttributes;
+    'range-picker': Components.RangePickerAttributes;
   }
 
+
+  interface HTMLDayBlockElement extends Components.DayBlock, HTMLStencilElement {}
+  var HTMLDayBlockElement: {
+    prototype: HTMLDayBlockElement;
+    new (): HTMLDayBlockElement;
+  };
 
   interface HTMLMonthCalendarElement extends Components.MonthCalendar, HTMLStencilElement {}
   var HTMLMonthCalendarElement: {
@@ -40,12 +77,30 @@ declare global {
     new (): HTMLMonthCalendarElement;
   };
 
+  interface HTMLRangeNavigationElement extends Components.RangeNavigation, HTMLStencilElement {}
+  var HTMLRangeNavigationElement: {
+    prototype: HTMLRangeNavigationElement;
+    new (): HTMLRangeNavigationElement;
+  };
+
+  interface HTMLRangePickerElement extends Components.RangePicker, HTMLStencilElement {}
+  var HTMLRangePickerElement: {
+    prototype: HTMLRangePickerElement;
+    new (): HTMLRangePickerElement;
+  };
+
   interface HTMLElementTagNameMap {
+    'day-block': HTMLDayBlockElement
     'month-calendar': HTMLMonthCalendarElement
+    'range-navigation': HTMLRangeNavigationElement
+    'range-picker': HTMLRangePickerElement
   }
 
   interface ElementTagNameMap {
+    'day-block': HTMLDayBlockElement;
     'month-calendar': HTMLMonthCalendarElement;
+    'range-navigation': HTMLRangeNavigationElement;
+    'range-picker': HTMLRangePickerElement;
   }
 
 

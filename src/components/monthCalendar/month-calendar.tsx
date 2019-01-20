@@ -7,9 +7,11 @@ import { Component, Prop } from '@stencil/core';
   shadow: true
 })
 export class MonthCalendar {
-  @Prop() startDate: Date;
-  @Prop() endDate: Date;
-  @Prop() startOnSundays: Boolean;
+  @Prop() startDate: string;
+  @Prop() endDate: string;
+  @Prop() startOnSundays: boolean;
+  @Prop() hideOutsiders: boolean;
+  @Prop() activeMonth: string;
 
   private weekdays: string[] = [
     'Monday',
@@ -21,7 +23,23 @@ export class MonthCalendar {
     'Sunday'
   ]
 
+  private months: string[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+
   render() {
+
     return this.renderMarkupForCalendar()
   }
 
@@ -30,16 +48,18 @@ export class MonthCalendar {
 
     return (
       <div class='datepicker-container'>
+        <div class="month-header">
+          {this.getMonthHeader()}
+        </div>
+
           {this.getWeekdayHeaders()}
           {
             cal.map((week: Date[]) => {
               return (
                 <div class="row">
-                  {
+                {
                     week.map((day: Date) => {
-                      return (
-                        <div class="column">{day.getDate()}</div>
-                      );
+                      return this.renderCalendarDayBlock(day)
                     })
                   }
                 </div>
@@ -52,7 +72,7 @@ export class MonthCalendar {
 
   getWeekdayHeaders () {
     return (
-      <div class="row">
+      <div class="row weekday-header">
       {
         this.weekdays.map((day) => {
           return (
@@ -60,6 +80,45 @@ export class MonthCalendar {
           )
         })
       }
+      </div>
+    )
+  }
+
+  isOutsideActiveMonth (day: Date): boolean {
+    return this.getActiveMonth().getMonth() !== day.getMonth();
+  }
+
+  isSelectedEndOfRange (day: Date): boolean {
+    if (! this.startDate) {
+      return false;
+    }
+
+    return day.getTime() === new Date(this.startDate).getTime() || day.getTime() === new Date(this.endDate).getTime();
+  }
+
+  isSelectedBetweenRange (day: Date): boolean {
+    if (! this.startDate || this.isSelectedEndOfRange(day)) {
+      return false;
+    }
+
+    const start = new Date(this.startDate)
+    const end = new Date(this.endDate)
+
+    return day > start && day < end
+  }
+
+  renderCalendarDayBlock (day: Date) {
+    const classlist = {
+      'outside-active-month': this.isOutsideActiveMonth(day),
+      'hide-block': this.hideOutsiders && this.isOutsideActiveMonth(day),
+      'selected-end-range': this.isSelectedEndOfRange(day),
+      'selected-between-range': this.isSelectedBetweenRange(day),
+      'column': true
+    }
+
+    return (
+      <div class={classlist}>
+        {day.getDate()}
       </div>
     )
   }
@@ -72,10 +131,18 @@ export class MonthCalendar {
     return new Date(newSeconds);
   }
 
-  getStartOfMonth (): Date {
-    const now = new Date();
+  getActiveMonth () {
+    return new Date(this.activeMonth + '-01');
+  }
 
-    now.setDate(1);
+  getMonthHeader () {
+    const active = this.getActiveMonth();
+
+    return this.months[active.getMonth()] + " " + active.getFullYear();
+  }
+
+  getStartOfMonth (): Date {
+    const now = this.getActiveMonth()
 
     // Go back to the previous Monday.
     const currentDay = now.getDay();

@@ -1,0 +1,7 @@
+.range-picker {
+    width: 560px;
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 1em 0;
+    position: relative;
+}
