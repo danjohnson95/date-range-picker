@@ -11,6 +11,7 @@ export class DayBlock {
   @Prop() isSelectedEndRange: boolean;
   @Prop() isSelectedBetweenRange: boolean;
   @Prop() isMaybeRange: boolean;
+  @Prop() isMaybeStart: boolean;
   @Prop() date: string;
 
   @Event() clickDate: EventEmitter;
@@ -38,6 +39,7 @@ export class DayBlock {
       'selected-end-range': this.isSelectedEndRange,
       'selected-between-range': this.isSelectedBetweenRange,
       'maybe-range': this.isMaybeRange,
+      'maybe-start': this.isMaybeStart,
       'column': true
     }
   }

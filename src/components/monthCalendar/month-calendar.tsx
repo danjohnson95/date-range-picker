@@ -13,6 +13,7 @@ export class MonthCalendar {
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() activeMonth: string;
+  @Prop() maybeStartDate: string;
 
   private weekdays: string[] = [
     'Monday',
@@ -40,8 +41,11 @@ export class MonthCalendar {
   ]
 
   render() {
-
     return this.renderMarkupForCalendar()
+  }
+
+  rangePartiallySet () {
+    return this.startDate && ! this.endDate;
   }
 
   renderMarkupForCalendar () {
@@ -119,6 +123,16 @@ export class MonthCalendar {
     return false;
   }
 
+  isMaybeStart (day: Date): boolean {
+    if (! this.maybeStartDate) {
+      return false;
+    }
+
+    const maybeStart = new Date(this.maybeStartDate);
+
+    return maybeStart.getTime() === day.getTime();
+  }
+
   renderCalendarDayBlock (day: Date) {
     return (
       <day-block
@@ -127,6 +141,7 @@ export class MonthCalendar {
         shouldHide={this.hideOutsiders && this.isOutsideActiveMonth(day)}
         isSelectedEndRange={this.isSelectedEndOfRange(day)}
         isSelectedBetweenRange={this.isSelectedBetweenRange(day)}
+        isMaybeStart={this.isMaybeStart(day)}
         isMaybeRange={this.isMaybeRange(day)}
         date={day.toString()}>
       </day-block>

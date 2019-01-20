@@ -13,6 +13,7 @@
 
 .datepicker-container .row {
     display: flex;
+    margin: -1px 0;
 }
 
 .datepicker-container .row .column {

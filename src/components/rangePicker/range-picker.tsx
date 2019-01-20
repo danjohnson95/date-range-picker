@@ -1,5 +1,4 @@
-import { Component, Prop, Listen, State } from '@stencil/core';
-// import { format } from '../../utils/utils';
+import { Component, Prop, Listen, State, Watch } from '@stencil/core';
 
 @Component({
   tag: 'range-picker',
@@ -17,7 +16,9 @@ export class RangePicker {
   @State() activeMonth: Date;
   @State() startDate: Date;
   @State() endDate: Date;
-  @State() maybeEndDate: Date
+  @State() maybeStartDate: Date;
+  @State() maybeEndDate: Date;
+
 
   constructor () {
     let activeMonth;
@@ -70,6 +71,8 @@ export class RangePicker {
   mouseOverDateHandler (event: CustomEvent) {
     if (this.rangePartiallySet()) {
       this.maybeEndDate = event.detail
+    } else {
+      this.maybeStartDate = event.detail;
     }
   }
 
@@ -78,6 +81,18 @@ export class RangePicker {
     if (this.rangePartiallySet()) {
       this.maybeEndDate = null;
     }
+
+    this.maybeStartDate = null;
+  }
+
+  @Watch('startDate')
+  startDateChangedHandler () {
+    this.maybeStartDate = null;
+  }
+
+  @Watch('endDate')
+  endDateChangedHandler () {
+    this.maybeStartDate = null;
   }
 
   rangePartiallySet () {
@@ -115,6 +130,7 @@ export class RangePicker {
           activeMonth={activeMonthStr}
           startDate={this.startDate ? this.startDate.toString() : null}
           endDate={this.endDate ? this.endDate.toString() : null}
+          maybeStartDate={this.maybeStartDate ? this.maybeStartDate.toString() : null}
           maybeEndDate={this.maybeEndDate ? this.maybeEndDate.toString() : null}
           hideOutsiders={this.hideOutsiders}
           startOnSundays={this.startOnSundays}>

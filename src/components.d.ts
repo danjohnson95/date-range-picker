@@ -15,6 +15,7 @@ export namespace Components {
   interface DayBlock {
     'date': string;
     'isMaybeRange': boolean;
+    'isMaybeStart': boolean;
     'isSelectedBetweenRange': boolean;
     'isSelectedEndRange': boolean;
     'outsideActiveMonth': boolean;
@@ -23,6 +24,7 @@ export namespace Components {
   interface DayBlockAttributes extends StencilHTMLAttributes {
     'date'?: string;
     'isMaybeRange'?: boolean;
+    'isMaybeStart'?: boolean;
     'isSelectedBetweenRange'?: boolean;
     'isSelectedEndRange'?: boolean;
     'onClickDate'?: (event: CustomEvent) => void;
@@ -37,6 +39,7 @@ export namespace Components {
     'endDate'?: string;
     'hideOutsiders': boolean;
     'maybeEndDate'?: string;
+    'maybeStartDate': string;
     'startDate'?: string;
     'startOnSundays': boolean;
   }
@@ -45,6 +48,7 @@ export namespace Components {
     'endDate'?: string;
     'hideOutsiders'?: boolean;
     'maybeEndDate'?: string;
+    'maybeStartDate'?: string;
     'startDate'?: string;
     'startOnSundays'?: boolean;
   }
