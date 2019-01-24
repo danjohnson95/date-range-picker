@@ -12,6 +12,26 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface DateRangePicker {
+    'calendarStart'?: string;
+    'disablePast'?: boolean;
+    'hideOutsiders'?: boolean;
+    'initialEndDate'?: string;
+    'initialStartDate'?: string;
+    'numberOfCalendars': number;
+    'startOnSundays'?: boolean;
+  }
+  interface DateRangePickerAttributes extends StencilHTMLAttributes {
+    'calendarStart'?: string;
+    'disablePast'?: boolean;
+    'hideOutsiders'?: boolean;
+    'initialEndDate'?: string;
+    'initialStartDate'?: string;
+    'numberOfCalendars'?: number;
+    'onInput'?: (event: CustomEvent) => void;
+    'startOnSundays'?: boolean;
+  }
+
   interface DayBlock {
     'date': string;
     'isMaybeRange': boolean;
@@ -36,6 +56,15 @@ export namespace Components {
     'shouldHide'?: boolean;
   }
 
+  interface DateRangePickerInputElm {
+    'fromDate'?: string;
+    'toDate'?: string;
+  }
+  interface DateRangePickerInputElmAttributes extends StencilHTMLAttributes {
+    'fromDate'?: string;
+    'toDate'?: string;
+  }
+
   interface MonthCalendar {
     'activeMonth': string;
     'disablePast': boolean;
@@ -57,13 +86,7 @@ export namespace Components {
     'startOnSundays'?: boolean;
   }
 
-  interface RangeNavigation {}
-  interface RangeNavigationAttributes extends StencilHTMLAttributes {
-    'onNextMonth'?: (event: CustomEvent) => void;
-    'onPreviousMonth'?: (event: CustomEvent) => void;
-  }
-
-  interface RangePicker {
+  interface DateRangePickerPopup {
     'calendarStart'?: string;
     'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
@@ -72,38 +95,62 @@ export namespace Components {
     'numberOfCalendars': number;
     'startOnSundays'?: boolean;
   }
-  interface RangePickerAttributes extends StencilHTMLAttributes {
+  interface DateRangePickerPopupAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
     'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
     'numberOfCalendars'?: number;
+    'onEndDateSet'?: (event: CustomEvent) => void;
     'onInput'?: (event: CustomEvent) => void;
+    'onStartDateSet'?: (event: CustomEvent) => void;
     'startOnSundays'?: boolean;
+  }
+
+  interface RangeNavigation {}
+  interface RangeNavigationAttributes extends StencilHTMLAttributes {
+    'onNextMonth'?: (event: CustomEvent) => void;
+    'onPreviousMonth'?: (event: CustomEvent) => void;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
+    'DateRangePicker': Components.DateRangePicker;
     'DayBlock': Components.DayBlock;
+    'DateRangePickerInputElm': Components.DateRangePickerInputElm;
     'MonthCalendar': Components.MonthCalendar;
+    'DateRangePickerPopup': Components.DateRangePickerPopup;
     'RangeNavigation': Components.RangeNavigation;
-    'RangePicker': Components.RangePicker;
   }
 
   interface StencilIntrinsicElements {
+    'date-range-picker': Components.DateRangePickerAttributes;
     'day-block': Components.DayBlockAttributes;
+    'date-range-picker-input-elm': Components.DateRangePickerInputElmAttributes;
     'month-calendar': Components.MonthCalendarAttributes;
+    'date-range-picker-popup': Components.DateRangePickerPopupAttributes;
     'range-navigation': Components.RangeNavigationAttributes;
-    'range-picker': Components.RangePickerAttributes;
   }
 
+
+  interface HTMLDateRangePickerElement extends Components.DateRangePicker, HTMLStencilElement {}
+  var HTMLDateRangePickerElement: {
+    prototype: HTMLDateRangePickerElement;
+    new (): HTMLDateRangePickerElement;
+  };
 
   interface HTMLDayBlockElement extends Components.DayBlock, HTMLStencilElement {}
   var HTMLDayBlockElement: {
     prototype: HTMLDayBlockElement;
     new (): HTMLDayBlockElement;
+  };
+
+  interface HTMLDateRangePickerInputElmElement extends Components.DateRangePickerInputElm, HTMLStencilElement {}
+  var HTMLDateRangePickerInputElmElement: {
+    prototype: HTMLDateRangePickerInputElmElement;
+    new (): HTMLDateRangePickerInputElmElement;
   };
 
   interface HTMLMonthCalendarElement extends Components.MonthCalendar, HTMLStencilElement {}
@@ -112,30 +159,34 @@ declare global {
     new (): HTMLMonthCalendarElement;
   };
 
+  interface HTMLDateRangePickerPopupElement extends Components.DateRangePickerPopup, HTMLStencilElement {}
+  var HTMLDateRangePickerPopupElement: {
+    prototype: HTMLDateRangePickerPopupElement;
+    new (): HTMLDateRangePickerPopupElement;
+  };
+
   interface HTMLRangeNavigationElement extends Components.RangeNavigation, HTMLStencilElement {}
   var HTMLRangeNavigationElement: {
     prototype: HTMLRangeNavigationElement;
     new (): HTMLRangeNavigationElement;
   };
 
-  interface HTMLRangePickerElement extends Components.RangePicker, HTMLStencilElement {}
-  var HTMLRangePickerElement: {
-    prototype: HTMLRangePickerElement;
-    new (): HTMLRangePickerElement;
-  };
-
   interface HTMLElementTagNameMap {
+    'date-range-picker': HTMLDateRangePickerElement
     'day-block': HTMLDayBlockElement
+    'date-range-picker-input-elm': HTMLDateRangePickerInputElmElement
     'month-calendar': HTMLMonthCalendarElement
+    'date-range-picker-popup': HTMLDateRangePickerPopupElement
     'range-navigation': HTMLRangeNavigationElement
-    'range-picker': HTMLRangePickerElement
   }
 
   interface ElementTagNameMap {
+    'date-range-picker': HTMLDateRangePickerElement;
     'day-block': HTMLDayBlockElement;
+    'date-range-picker-input-elm': HTMLDateRangePickerInputElmElement;
     'month-calendar': HTMLMonthCalendarElement;
+    'date-range-picker-popup': HTMLDateRangePickerPopupElement;
     'range-navigation': HTMLRangeNavigationElement;
-    'range-picker': HTMLRangePickerElement;
   }
 
 
