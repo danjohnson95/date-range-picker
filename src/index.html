@@ -4,20 +4,111 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
 
+  <style>
+    * {
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    }
+  </style>
+
+  <script src="/build/mycomponent.js"></script>
 </head>
 <body>
 
-  <date-range-picker 
-    hide-outsiders="true"
+  <range-picker 
+    hide-outsiders="false"
     initial-start-date="2019-01-01T00:00:00"
     initial-end-date="2019-02-13T00:00:00"
-    start-on-sundays="true"
+    start-on-sundays="false"
     disable-past="false"
     number-of-calendars=2>
   </date-range-picker>
 
+  <table>
+    <tr>
+      <td>
+        <strong><code>hide-outsiders</code></strong>
+        <p>
+          Hides dates that fall outside of the month
+        </p>
+      </td>
+      <td>
+        <input type="checkbox" id="hide-outsiders" class="attr-checkbox">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong><code>start-on-sundays</code></strong>
+        <p>
+          Should the calendar week start on a Sunday?
+        </p>
+      </td>
+      <td>
+        <input type="checkbox" id="start-on-sundays" class="attr-checkbox">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong><code>number-of-calendars</code></strong>
+        <p>
+          How many calendars should display?
+        </p>
+      </td>
+      <td>
+        <select id="number-of-calendars">
+          <option>1</option>
+          <option selected>2</option>
+          <option>3</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong><code>disable-past</code></strong>
+        <p>
+          Should past dates be disabled?
+        </p>
+      </td>
+      <td>
+        <input type="checkbox" id="disable-past" class="attr-checkbox">
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    const rangePicker = document.querySelector('range-picker');
+    const hideOutsiders = document.querySelector('#hide-outsiders');
+    const startOnSundays = document.querySelector('#start-on-sundays');
+    const numberOfCalendars = document.querySelector('#number-of-calendars');
+    const disablePast = document.querySelector('#disable-past');
+
+    startOnSundays.addEventListener('change', function (val) {
+      const state = val.target.checked;
+
+      rangePicker.startOnSundays = state;
+    });
+
+    hideOutsiders.addEventListener('change', function (val) {
+      const state = val.target.checked;
+
+      rangePicker.hideOutsiders = state;
+    });
+
+    numberOfCalendars.addEventListener('change', function (val) {
+      const state = val.target.value;
+
+      rangePicker.numberOfCalendars = state;
+    });
+
+    disablePast.addEventListener('change', function (val) {
+      const state = val.target.checked;
+
+      rangePicker.disablePast = state;
+    });
+  </script>
 
 </body>
 </html>
