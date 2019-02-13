@@ -17,6 +17,8 @@ export class DateRangePickerInputElm {
           date={this.fromDate}>
         </date-range-picker-input-elm-selection>
 
+        <span>to</span>
+
         <date-range-picker-input-elm-selection
           placeholder="End date"
           date={this.toDate}>

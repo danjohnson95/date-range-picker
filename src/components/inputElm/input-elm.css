@@ -1,5 +1,14 @@
-input {
-    width: 200px;
+:host {
     padding: 5px;
     font-size: 1em;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+div {
+    display: flex;
+}
+
+span {
+    margin: 0 1em;
 }

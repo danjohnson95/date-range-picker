@@ -21,8 +21,8 @@ export class DateRangePicker {
   @Event() input: EventEmitter;
 
   isOpen: boolean = false;
-  initialStartDateAsDate: Date;
-  initialEndDateAsDate: Date;
+  initialStartDateAsDate?: Date;
+  initialEndDateAsDate?: Date;
 
   @Listen('startDateSet')
   startDateSetHandler (event: CustomEvent) {
@@ -36,8 +36,13 @@ export class DateRangePicker {
   }
 
   componentWillLoad () {
-    this.initialStartDateAsDate = new Date(this.initialStartDate);
-    this.initialEndDateAsDate = new Date(this.initialEndDate);
+    if (this.initialStartDate) {
+      this.initialStartDateAsDate = new Date(this.initialStartDate);
+    }
+
+    if (this.initialEndDate) {
+      this.initialEndDateAsDate = new Date(this.initialEndDate);
+    }
 
     this.updateActiveMonth();
     this.updateSelectedRange();
