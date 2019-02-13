@@ -77,21 +77,21 @@ export namespace Components {
   interface MonthCalendar {
     'activeMonth': string;
     'disablePast': boolean;
-    'endDate'?: string;
+    'endDate'?: Date;
     'hideOutsiders': boolean;
     'maybeEndDate'?: string;
     'maybeStartDate': string;
-    'startDate'?: string;
+    'startDate'?: Date;
     'startOnSundays': boolean;
   }
   interface MonthCalendarAttributes extends StencilHTMLAttributes {
     'activeMonth'?: string;
     'disablePast'?: boolean;
-    'endDate'?: string;
+    'endDate'?: Date;
     'hideOutsiders'?: boolean;
     'maybeEndDate'?: string;
     'maybeStartDate'?: string;
-    'startDate'?: string;
+    'startDate'?: Date;
     'startOnSundays'?: boolean;
   }
 

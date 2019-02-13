@@ -8,8 +8,8 @@ import months from '../../lang/months.json';
   shadow: true
 })
 export class MonthCalendar {
-  @Prop() startDate?: string;
-  @Prop() endDate?: string;
+  @Prop() startDate?: Date;
+  @Prop() endDate?: Date;
   @Prop() maybeEndDate?: string;
   @Prop() disablePast: boolean;
   @Prop() startOnSundays: boolean;
@@ -85,7 +85,7 @@ export class MonthCalendar {
       return false;
     }
 
-    return day.getTime() === new Date(this.startDate).getTime() || day.getTime() === new Date(this.endDate).getTime();
+    return day.getTime() === this.startDate.getTime() || (this.endDate && day.getTime() === this.endDate.getTime());
   }
 
   isSelectedBetweenRange (day: Date): boolean {
@@ -93,18 +93,14 @@ export class MonthCalendar {
       return false;
     }
 
-    const start = new Date(this.startDate)
-    const end = new Date(this.endDate)
-
-    return day > start && day < end
+    return day > this.startDate && day < this.endDate
   }
 
   isMaybeRange (day: Date): boolean {
     if (this.startDate && this.maybeEndDate) {
-      const start = new Date(this.startDate)
       const end = new Date(this.maybeEndDate)
 
-      return day > start && day <= end;
+      return day > this.startDate && day <= end;
     }
 
     return false;

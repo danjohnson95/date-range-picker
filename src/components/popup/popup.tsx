@@ -134,8 +134,8 @@ export class DateRangePickerPopup {
         <month-calendar
           disablePast={this.disablePast}
           activeMonth={activeMonthStr}
-          startDate={this.startDate ? this.startDate.toString() : null}
-          endDate={this.endDate ? this.endDate.toString() : null}
+          startDate={this.startDate}
+          endDate={this.endDate}
           maybeStartDate={this.maybeStartDate ? this.maybeStartDate.toString() : null}
           maybeEndDate={this.maybeEndDate ? this.maybeEndDate.toString() : null}
           hideOutsiders={this.hideOutsiders}
