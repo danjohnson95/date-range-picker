@@ -6,31 +6,21 @@ import { Component, Prop } from '@stencil/core';
   shadow: true
 })
 export class DateRangePickerInputElm {
-  @Prop() fromDate?: string;
-  @Prop() toDate?: string;
-
-  val: string;
-
-  componentWillLoad () {
-    this.val = this.getValue();
-  }
-
-  componentWillUpdate () {
-    this.val = this.getValue();
-  }
-
-  getValue (): string {
-    if (this.fromDate) {
-      return this.fromDate.toString() + ' to ' + (this.toDate ? this.toDate.toString() : '?');
-    }
-
-    return 'No range set';
-  }
+  @Prop() fromDate?: Date;
+  @Prop() toDate?: Date;
 
   render () {
     return (
       <div>
-        <input type="text" value={this.val}/>
+        <date-range-picker-input-elm-selection
+          placeholder="Start date"
+          date={this.fromDate}>
+        </date-range-picker-input-elm-selection>
+
+        <date-range-picker-input-elm-selection
+          placeholder="End date"
+          date={this.toDate}>
+        </date-range-picker-input-elm-selection>
       </div>
     );
   }

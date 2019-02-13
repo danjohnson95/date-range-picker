@@ -57,12 +57,21 @@ export namespace Components {
   }
 
   interface DateRangePickerInputElm {
-    'fromDate'?: string;
-    'toDate'?: string;
+    'fromDate'?: Date;
+    'toDate'?: Date;
   }
   interface DateRangePickerInputElmAttributes extends StencilHTMLAttributes {
-    'fromDate'?: string;
-    'toDate'?: string;
+    'fromDate'?: Date;
+    'toDate'?: Date;
+  }
+
+  interface DateRangePickerInputElmSelection {
+    'date'?: Date;
+    'placeholder': string;
+  }
+  interface DateRangePickerInputElmSelectionAttributes extends StencilHTMLAttributes {
+    'date'?: Date;
+    'placeholder'?: string;
   }
 
   interface MonthCalendar {
@@ -124,6 +133,7 @@ declare global {
     'DateRangePicker': Components.DateRangePicker;
     'DayBlock': Components.DayBlock;
     'DateRangePickerInputElm': Components.DateRangePickerInputElm;
+    'DateRangePickerInputElmSelection': Components.DateRangePickerInputElmSelection;
     'MonthCalendar': Components.MonthCalendar;
     'DateRangePickerPopup': Components.DateRangePickerPopup;
     'RangeNavigation': Components.RangeNavigation;
@@ -133,6 +143,7 @@ declare global {
     'date-range-picker': Components.DateRangePickerAttributes;
     'day-block': Components.DayBlockAttributes;
     'date-range-picker-input-elm': Components.DateRangePickerInputElmAttributes;
+    'date-range-picker-input-elm-selection': Components.DateRangePickerInputElmSelectionAttributes;
     'month-calendar': Components.MonthCalendarAttributes;
     'date-range-picker-popup': Components.DateRangePickerPopupAttributes;
     'range-navigation': Components.RangeNavigationAttributes;
@@ -157,6 +168,12 @@ declare global {
     new (): HTMLDateRangePickerInputElmElement;
   };
 
+  interface HTMLDateRangePickerInputElmSelectionElement extends Components.DateRangePickerInputElmSelection, HTMLStencilElement {}
+  var HTMLDateRangePickerInputElmSelectionElement: {
+    prototype: HTMLDateRangePickerInputElmSelectionElement;
+    new (): HTMLDateRangePickerInputElmSelectionElement;
+  };
+
   interface HTMLMonthCalendarElement extends Components.MonthCalendar, HTMLStencilElement {}
   var HTMLMonthCalendarElement: {
     prototype: HTMLMonthCalendarElement;
@@ -179,6 +196,7 @@ declare global {
     'date-range-picker': HTMLDateRangePickerElement
     'day-block': HTMLDayBlockElement
     'date-range-picker-input-elm': HTMLDateRangePickerInputElmElement
+    'date-range-picker-input-elm-selection': HTMLDateRangePickerInputElmSelectionElement
     'month-calendar': HTMLMonthCalendarElement
     'date-range-picker-popup': HTMLDateRangePickerPopupElement
     'range-navigation': HTMLRangeNavigationElement
@@ -188,6 +206,7 @@ declare global {
     'date-range-picker': HTMLDateRangePickerElement;
     'day-block': HTMLDayBlockElement;
     'date-range-picker-input-elm': HTMLDateRangePickerInputElmElement;
+    'date-range-picker-input-elm-selection': HTMLDateRangePickerInputElmSelectionElement;
     'month-calendar': HTMLMonthCalendarElement;
     'date-range-picker-popup': HTMLDateRangePickerPopupElement;
     'range-navigation': HTMLRangeNavigationElement;

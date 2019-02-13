@@ -1,5 +1,6 @@
 import { Component, Prop } from '@stencil/core';
-// import { format } from '../../utils/utils';
+import weekdays from '../../lang/weekdays.json';
+import months from '../../lang/months.json';
 
 @Component({
   tag: 'month-calendar',
@@ -18,37 +19,12 @@ export class MonthCalendar {
 
   private weekdaysOrdered: string[];
 
-  private weekdays: string[] = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ]
-
-  private months: string[] = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
-
   componentWillLoad () {
-    this.weekdaysOrdered = this.weekdays;
+    this.weekdaysOrdered = weekdays;
 
-    if (! this.startOnSundays) {
-      this.weekdaysOrdered.push(this.weekdaysOrdered.shift());
-    }
+    // if (! this.startOnSundays) {
+    //   this.weekdaysOrdered.push(this.weekdaysOrdered.shift());
+    // }
   }
 
   render() {
@@ -186,7 +162,7 @@ export class MonthCalendar {
   getMonthHeader () {
     const active = this.getActiveMonth();
 
-    return this.months[active.getMonth()] + " " + active.getFullYear();
+    return months[active.getMonth()] + " " + active.getFullYear();
   }
 
   getStartOfMonth (): Date {

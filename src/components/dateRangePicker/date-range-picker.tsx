@@ -73,8 +73,8 @@ export class DateRangePicker {
     return (
       <div class="outer-range-picker">
         <date-range-picker-input-elm
-          from-date={this.startDate ? this.formatDate(this.startDate) : null}
-          to-date={this.endDate ? this.formatDate(this.endDate) : null}>
+          fromDate={this.startDate}
+          toDate={this.endDate}>
         </date-range-picker-input-elm>
 
         <date-range-picker-popup
