@@ -10,12 +10,12 @@ import months from '../../lang/months.json';
 export class MonthCalendar {
   @Prop() startDate?: Date;
   @Prop() endDate?: Date;
-  @Prop() maybeEndDate?: string;
+  @Prop() maybeEndDate?: Date;
   @Prop() disablePast: boolean;
   @Prop() startOnSundays: boolean;
   @Prop() hideOutsiders: boolean;
   @Prop() activeMonth: string;
-  @Prop() maybeStartDate: string;
+  @Prop() maybeStartDate: Date;
 
   private weekdaysOrdered: string[];
 
@@ -98,9 +98,7 @@ export class MonthCalendar {
 
   isMaybeRange (day: Date): boolean {
     if (this.startDate && this.maybeEndDate) {
-      const end = new Date(this.maybeEndDate)
-
-      return day > this.startDate && day <= end;
+      return day > this.startDate && day <= this.maybeEndDate;
     }
 
     return false;
@@ -111,9 +109,7 @@ export class MonthCalendar {
       return false;
     }
 
-    const maybeStart = new Date(this.maybeStartDate);
-
-    return maybeStart.getTime() === day.getTime();
+    return this.maybeStartDate.getTime() === day.getTime();
   }
 
   shouldDisable (day: Date) {

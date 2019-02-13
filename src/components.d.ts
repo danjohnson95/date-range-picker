@@ -79,8 +79,8 @@ export namespace Components {
     'disablePast': boolean;
     'endDate'?: Date;
     'hideOutsiders': boolean;
-    'maybeEndDate'?: string;
-    'maybeStartDate': string;
+    'maybeEndDate'?: Date;
+    'maybeStartDate': Date;
     'startDate'?: Date;
     'startOnSundays': boolean;
   }
@@ -89,8 +89,8 @@ export namespace Components {
     'disablePast'?: boolean;
     'endDate'?: Date;
     'hideOutsiders'?: boolean;
-    'maybeEndDate'?: string;
-    'maybeStartDate'?: string;
+    'maybeEndDate'?: Date;
+    'maybeStartDate'?: Date;
     'startDate'?: Date;
     'startOnSundays'?: boolean;
   }

@@ -136,8 +136,8 @@ export class DateRangePickerPopup {
           activeMonth={activeMonthStr}
           startDate={this.startDate}
           endDate={this.endDate}
-          maybeStartDate={this.maybeStartDate ? this.maybeStartDate.toString() : null}
-          maybeEndDate={this.maybeEndDate ? this.maybeEndDate.toString() : null}
+          maybeStartDate={this.maybeStartDate}
+          maybeEndDate={this.maybeEndDate}
           hideOutsiders={this.hideOutsiders}
           startOnSundays={this.startOnSundays}>
         </month-calendar>
