@@ -8,16 +8,14 @@ import { Component, Prop, Listen, State, Watch, Event, EventEmitter } from '@ste
 export class DateRangePickerPopup {
   @Prop() isOpen?: boolean
   @Prop() calendarStart?: string;
-  @Prop() initialStartDate?: string;
-  @Prop() initialEndDate?: string;
+  @Prop() fromDate?: Date;
+  @Prop() toDate?: Date;
   @Prop() startOnSundays?: boolean = false;
   @Prop() hideOutsiders?: boolean = true;
   @Prop() disablePast?: boolean = true;
   @Prop() numberOfCalendars: number;
   @Prop() initialActiveMonth: Date;
 
-  @State() startDate: Date;
-  @State() endDate: Date;
   @State() maybeStartDate: Date;
   @State() maybeEndDate: Date;
   @State() activeMonth: Date;
@@ -43,22 +41,10 @@ export class DateRangePickerPopup {
   @Listen('clickDate')
   clickDateHandler (event: CustomEvent): void {
     if (this.isRangePartiallySet() && this.isRangeAllowed(event.detail)) {
-      this.endDate = event.detail;
       this.maybeEndDate = null;
-
-      this.endDateSet.emit(this.endDate);
+      this.endDateSet.emit(event.detail);
     } else {
-      this.startDate = event.detail;
-      this.endDate = null;
-
-      this.startDateSet.emit(this.startDate);
-    }
-
-    if (this.isRangeSet()) {
-      this.input.emit({
-        startDate: this.startDate,
-        endDate: this.endDate
-      });
+      this.startDateSet.emit(event.detail);
     }
   }
 
@@ -68,7 +54,7 @@ export class DateRangePickerPopup {
       this.maybeEndDate = event.detail
     }
     
-    if (this.isRangePartiallySet() && event.detail < this.startDate) {
+    if (this.isRangePartiallySet() && event.detail < this.toDate) {
       this.maybeStartDate = event.detail;
     }
 
@@ -86,26 +72,22 @@ export class DateRangePickerPopup {
     this.maybeStartDate = null;
   }
 
-  @Watch('startDate')
+  @Watch('fromDate')
   startDateChangedHandler (): void {
     this.maybeStartDate = null;
   }
 
-  @Watch('endDate')
+  @Watch('toDate')
   endDateChangedHandler () {
     this.maybeStartDate = null;
   }
 
-  private isRangeSet (): boolean {
-    return this.startDate !== null && this.endDate !== null;
-  }
-
   private isRangePartiallySet (): boolean {
-    return this.startDate !== null && this.endDate === null;
+    return this.fromDate !== null && this.toDate === null;
   }
 
   private isRangeAllowed (date: Date): boolean {
-    return date > this.startDate
+    return date > this.fromDate
   }
 
   private moveMonth (forward: boolean = true): void {
@@ -134,8 +116,8 @@ export class DateRangePickerPopup {
         <month-calendar
           disablePast={this.disablePast}
           activeMonth={activeMonthStr}
-          startDate={this.startDate}
-          endDate={this.endDate}
+          startDate={this.fromDate}
+          endDate={this.toDate}
           maybeStartDate={this.maybeStartDate}
           maybeEndDate={this.maybeEndDate}
           hideOutsiders={this.hideOutsiders}

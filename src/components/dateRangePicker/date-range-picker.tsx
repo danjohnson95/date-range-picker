@@ -17,16 +17,17 @@ export class DateRangePicker {
   @State() activeMonth: Date;
   @State() startDate: Date;
   @State() endDate: Date;
-  @State() maybeStartDate: Date;
-  @State() maybeEndDate: Date;
 
   @Event() input: EventEmitter;
 
   isOpen: boolean = false;
+  initialStartDateAsDate: Date;
+  initialEndDateAsDate: Date;
 
   @Listen('startDateSet')
   startDateSetHandler (event: CustomEvent) {
     this.startDate = event.detail;
+    this.endDate = null;
   }
 
   @Listen('endDateSet')
@@ -35,6 +36,9 @@ export class DateRangePicker {
   }
 
   componentWillLoad () {
+    this.initialStartDateAsDate = new Date(this.initialStartDate);
+    this.initialEndDateAsDate = new Date(this.initialEndDate);
+
     this.updateActiveMonth();
     this.updateSelectedRange();
   }
@@ -44,8 +48,8 @@ export class DateRangePicker {
 
     if (this.calendarStart) {
       activeMonth = new Date(this.calendarStart);
-    } else if (this.initialStartDate) {
-      activeMonth = new Date(this.initialStartDate);
+    } else if (this.initialStartDateAsDate) {
+      activeMonth = this.initialStartDateAsDate;
     } else {
       activeMonth = new Date();
     }
@@ -56,17 +60,13 @@ export class DateRangePicker {
   }
 
   private updateSelectedRange (): void {
-    if (this.initialStartDate) {
-      this.startDate = new Date(this.initialStartDate);
+    if (this.initialStartDateAsDate) {
+      this.startDate = this.initialStartDateAsDate;
     }
 
     if (this.initialEndDate) {
-      this.endDate = new Date(this.initialEndDate);
+      this.endDate = this.initialEndDateAsDate;
     }
-  }
-
-  formatDate (date: Date): string {
-    return date.getDate() + ' ' + date.getMonth() + 1 + ' ' + date.getFullYear();
   }
 
   render () {
@@ -80,8 +80,8 @@ export class DateRangePicker {
         <date-range-picker-popup
             isOpen={this.isOpen}
             hideOutsiders={this.hideOutsiders}
-            initialStartDate="2019-01-01T00:00:00"
-            initialEndDate="2019-02-13T00:00:00"
+            fromDate={this.startDate}
+            toDate={this.endDate}
             initialActiveMonth={this.activeMonth}
             startOnSundays={this.startOnSundays}
             disablePast={this.disablePast}

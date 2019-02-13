@@ -98,27 +98,27 @@ export namespace Components {
   interface DateRangePickerPopup {
     'calendarStart'?: string;
     'disablePast'?: boolean;
+    'fromDate'?: Date;
     'hideOutsiders'?: boolean;
     'initialActiveMonth': Date;
-    'initialEndDate'?: string;
-    'initialStartDate'?: string;
     'isOpen'?: boolean;
     'numberOfCalendars': number;
     'startOnSundays'?: boolean;
+    'toDate'?: Date;
   }
   interface DateRangePickerPopupAttributes extends StencilHTMLAttributes {
     'calendarStart'?: string;
     'disablePast'?: boolean;
+    'fromDate'?: Date;
     'hideOutsiders'?: boolean;
     'initialActiveMonth'?: Date;
-    'initialEndDate'?: string;
-    'initialStartDate'?: string;
     'isOpen'?: boolean;
     'numberOfCalendars'?: number;
     'onEndDateSet'?: (event: CustomEvent) => void;
     'onInput'?: (event: CustomEvent) => void;
     'onStartDateSet'?: (event: CustomEvent) => void;
     'startOnSundays'?: boolean;
+    'toDate'?: Date;
   }
 
   interface RangeNavigation {}

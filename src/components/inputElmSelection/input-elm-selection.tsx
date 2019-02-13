@@ -41,12 +41,11 @@ export class DateRangePickerInputElmSelection {
   }
 
   getDateOutput(): string {
-      if (this.date === undefined) {
+      if (! this.date) {
           return this.placeholder;
       }
 
       return this.formatDate(this.date);
-      // return this.date.toISOString()
   }
 
   render () {
