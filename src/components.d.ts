@@ -90,8 +90,10 @@ export namespace Components {
     'calendarStart'?: string;
     'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
+    'initialActiveMonth': Date;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
+    'isOpen'?: boolean;
     'numberOfCalendars': number;
     'startOnSundays'?: boolean;
   }
@@ -99,8 +101,10 @@ export namespace Components {
     'calendarStart'?: string;
     'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
+    'initialActiveMonth'?: Date;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
+    'isOpen'?: boolean;
     'numberOfCalendars'?: number;
     'onEndDateSet'?: (event: CustomEvent) => void;
     'onInput'?: (event: CustomEvent) => void;

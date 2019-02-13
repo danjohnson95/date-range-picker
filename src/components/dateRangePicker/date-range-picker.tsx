@@ -34,6 +34,37 @@ export class DateRangePicker {
     this.endDate = event.detail;
   }
 
+  componentWillLoad () {
+    this.updateActiveMonth();
+    this.updateSelectedRange();
+  }
+
+  private updateActiveMonth (): void {
+    let activeMonth: Date;
+
+    if (this.calendarStart) {
+      activeMonth = new Date(this.calendarStart);
+    } else if (this.initialStartDate) {
+      activeMonth = new Date(this.initialStartDate);
+    } else {
+      activeMonth = new Date();
+    }
+
+    activeMonth.setDate(1);
+
+    this.activeMonth = activeMonth;
+  }
+
+  private updateSelectedRange (): void {
+    if (this.initialStartDate) {
+      this.startDate = new Date(this.initialStartDate);
+    }
+
+    if (this.initialEndDate) {
+      this.endDate = new Date(this.initialEndDate);
+    }
+  }
+
   formatDate (date: Date): string {
     return date.getDate() + ' ' + date.getMonth() + 1 + ' ' + date.getFullYear();
   }
@@ -47,7 +78,14 @@ export class DateRangePicker {
         </date-range-picker-input-elm>
 
         <date-range-picker-popup
-            is-open={this.isOpen}>
+            isOpen={this.isOpen}
+            hideOutsiders={this.hideOutsiders}
+            initialStartDate="2019-01-01T00:00:00"
+            initialEndDate="2019-02-13T00:00:00"
+            initialActiveMonth={this.activeMonth}
+            startOnSundays={this.startOnSundays}
+            disablePast={this.disablePast}
+            numberOfCalendars={this.numberOfCalendars}>
         </date-range-picker-popup>
       </div>
     );
