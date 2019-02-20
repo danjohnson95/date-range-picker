@@ -6,3 +6,15 @@ div {
     padding: 0 1em;
     box-sizing: border-box;
 }
+
+button {
+    -webkit-appearance: none;
+    padding: 5px 9px;
+    border-radius: 3px;
+    outline: 0;
+}
+
+button svg {
+    width: 19px;
+    height: 19px;
+}
