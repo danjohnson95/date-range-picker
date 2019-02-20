@@ -17,10 +17,12 @@ export class DateRangePicker {
   @State() activeMonth: Date;
   @State() startDate: Date;
   @State() endDate: Date;
+  @State() isOpen: boolean = false;
+  @State() startDateActive: boolean = false;
+  @State() endDateActive: boolean = false;
 
   @Event() input: EventEmitter;
 
-  isOpen: boolean = false;
   initialStartDateAsDate?: Date;
   initialEndDateAsDate?: Date;
 
@@ -28,11 +30,23 @@ export class DateRangePicker {
   startDateSetHandler (event: CustomEvent) {
     this.startDate = event.detail;
     this.endDate = null;
+    this.startDateActive = false;
+    this.endDateActive = true;
   }
 
   @Listen('endDateSet')
   endDateSetHandler (event: CustomEvent) {
     this.endDate = event.detail;
+    this.isOpen = false;
+    this.startDateActive = false;
+    this.endDateActive = false;
+  }
+
+  @Listen('didFocusElement')
+  didFocusElementHandler () {
+    this.isOpen = true;
+    this.startDateActive = true;
+    this.endDateActive = false;
   }
 
   componentWillLoad () {
@@ -79,7 +93,9 @@ export class DateRangePicker {
       <div class="outer-range-picker">
         <date-range-picker-input-elm
           fromDate={this.startDate}
-          toDate={this.endDate}>
+          toDate={this.endDate}
+          startDateActive={this.startDateActive}
+          endDateActive={this.endDateActive}>
         </date-range-picker-input-elm>
 
         <date-range-picker-popup

@@ -1,14 +1,15 @@
 :host {
-    padding: 5px;
     font-size: 1em;
     border: 1px solid #ccc;
     display: inline-block;
 }
 
-div {
-    display: flex;
+svg {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
 }
 
-span {
-    margin: 0 1em;
+div {
+    display: flex;
 }

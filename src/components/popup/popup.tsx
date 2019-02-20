@@ -130,8 +130,13 @@ export class DateRangePickerPopup {
   }
 
   render () {
+    const classList = {
+      "outer-range-picker": true,
+      "hide": !this.isOpen
+    };
+
     return (
-      <div class="outer-range-picker">
+      <div class={classList}>
         <div class="range-picker">
           <range-navigation></range-navigation>
           {this.makeCalendars()}

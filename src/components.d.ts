@@ -57,20 +57,27 @@ export namespace Components {
   }
 
   interface DateRangePickerInputElm {
+    'endDateActive': boolean;
     'fromDate'?: Date;
+    'startDateActive': boolean;
     'toDate'?: Date;
   }
   interface DateRangePickerInputElmAttributes extends StencilHTMLAttributes {
+    'endDateActive'?: boolean;
     'fromDate'?: Date;
+    'onDidFocusElement'?: (event: CustomEvent) => void;
+    'startDateActive'?: boolean;
     'toDate'?: Date;
   }
 
   interface DateRangePickerInputElmSelection {
     'date'?: Date;
+    'isActive': boolean;
     'placeholder': string;
   }
   interface DateRangePickerInputElmSelectionAttributes extends StencilHTMLAttributes {
     'date'?: Date;
+    'isActive'?: boolean;
     'placeholder'?: string;
   }
 

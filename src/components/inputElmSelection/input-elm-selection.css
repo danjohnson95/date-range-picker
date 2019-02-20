@@ -1,0 +1,20 @@
+:host {
+    width: 110px;
+}
+
+input {
+    border: 0;
+    font-size: 1em;
+    padding: 5px 10px;
+    margin: 0;
+    border-bottom: 2px solid transparent;
+    outline: 0;
+    -webkit-appearance: none;
+    height: 100%;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input.active {
+    border-color: #00a9ff;
+}

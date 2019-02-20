@@ -1,5 +1,4 @@
 import { Component, Prop } from '@stencil/core';
-import months from '../../lang/months.json';
 
 @Component({
   tag: 'date-range-picker-input-elm-selection',
@@ -9,6 +8,7 @@ import months from '../../lang/months.json';
 export class DateRangePickerInputElmSelection {
   @Prop() date?: Date;
   @Prop() placeholder: string;
+  @Prop() isActive: boolean;
 
   output: string
 
@@ -21,38 +21,30 @@ export class DateRangePickerInputElmSelection {
   }
 
   private formatDate (date: Date): string {
-    const month = months[date.getMonth()];
-
-    return date.getDate() + this.getSuffixFor(date.getDate()) + ' ' + month + ' ' + date.getFullYear();
-  }
-
-  private getSuffixFor (date: number): string {
-    switch (date) {
-      case 1:
-        return 'st';
-      case 2:
-      case 22:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
+    return [
+      date.getDate().toString().padStart(2, '0'),
+      date.getMonth().toString().padStart(2, '0'),
+      date.getFullYear().toString()
+    ].join('/');
   }
 
   getDateOutput(): string {
-      if (! this.date) {
-          return this.placeholder;
-      }
+    if (! this.date) {
+      return null;
+    }
 
-      return this.formatDate(this.date);
+    return this.formatDate(this.date);
   }
 
   render () {
+    const classList = {
+      'active': this.isActive
+    };
+
+    console.log('is active?', this.isActive)
+
     return (
-      <div>
-        { this.output }
-      </div>
+      <input class={classList} type="text" placeholder={this.placeholder} value={this.output}/>
     );
   }
 }

@@ -1,5 +1,30 @@
 .outer-range-picker {
     display: flex;
+    position: absolute;
+}
+
+.outer-range-picker:before {
+    content: '';
+    border-bottom: 10px solid #ccc;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    left: 30px;
+}
+
+.outer-range-picker:after {
+    content: '';
+    border-bottom: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -9px;
+    left: 30px;
+}
+
+.outer-range-picker.hide {
+    display: none;
 }
 
 .range-picker {
