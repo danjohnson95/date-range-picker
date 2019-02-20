@@ -1,3 +1,4 @@
 # Date Range Picker
 
-![jan-20-2019 23-54-36](https://user-images.githubusercontent.com/6871504/51446810-ee85bb00-1d0e-11e9-83de-c5a0c92d8f8a.gif)
+![feb-20-2019 22-19-50](https://user-images.githubusercontent.com/6871504/53128847-bbc52180-355d-11e9-9d2f-a7f66620c98d.gif)
+
