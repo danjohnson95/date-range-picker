@@ -41,6 +41,11 @@ export class DateRangePicker {
     this.isOpen = false;
     this.startDateActive = false;
     this.endDateActive = false;
+
+    this.input.emit({
+      startDate: this.startDate,
+      endDate: this.endDate
+    });
   }
 
   @Listen('didFocusElement')
