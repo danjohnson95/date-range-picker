@@ -61,6 +61,19 @@ export class DateRangePicker {
 
     this.updateActiveMonth();
     this.updateSelectedRange();
+    this.bindClickToClose();
+  }
+
+  private bindClickToClose() {
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      if (target.localName !== 'date-range-picker') {
+        this.isOpen = false;
+        this.startDateActive = false;
+        this.endDateActive = false;
+      }
+    });
   }
 
   private updateActiveMonth (): void {
