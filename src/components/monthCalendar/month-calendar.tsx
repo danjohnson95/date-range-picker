@@ -20,11 +20,19 @@ export class MonthCalendar {
   private weekdaysOrdered: string[];
 
   componentWillLoad () {
-    this.weekdaysOrdered = weekdays;
+    this.updateWeekdayOrder();
+  }
 
-    // if (! this.startOnSundays) {
-    //   this.weekdaysOrdered.push(this.weekdaysOrdered.shift());
-    // }
+  componentWillUpdate () {
+    this.updateWeekdayOrder();
+  }
+
+  updateWeekdayOrder () {
+    this.weekdaysOrdered = weekdays.slice();
+
+    if (! this.startOnSundays) {
+      this.weekdaysOrdered.push(this.weekdaysOrdered.shift());
+    }
   }
 
   render() {
