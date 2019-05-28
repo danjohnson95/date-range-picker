@@ -15,6 +15,7 @@ export class DateRangePickerPopup {
   @Prop() disablePast?: boolean = true;
   @Prop() numberOfCalendars: number;
   @Prop() initialActiveMonth: Date;
+  @Prop() inline: boolean = false;
 
   @State() maybeStartDate: Date;
   @State() maybeEndDate: Date;
@@ -132,7 +133,8 @@ export class DateRangePickerPopup {
   render () {
     const classList = {
       "outer-range-picker": true,
-      "hide": !this.isOpen
+      "hide": !this.isOpen && ! this.inline,
+      "inline": this.inline
     };
 
     return (

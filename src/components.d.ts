@@ -18,6 +18,7 @@ export namespace Components {
     'hideOutsiders'?: boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
+    'inline': boolean;
     'numberOfCalendars': number;
     'startOnSundays'?: boolean;
   }
@@ -27,6 +28,7 @@ export namespace Components {
     'hideOutsiders'?: boolean;
     'initialEndDate'?: string;
     'initialStartDate'?: string;
+    'inline'?: boolean;
     'numberOfCalendars'?: number;
     'onInput'?: (event: CustomEvent) => void;
     'startOnSundays'?: boolean;
@@ -108,6 +110,7 @@ export namespace Components {
     'fromDate'?: Date;
     'hideOutsiders'?: boolean;
     'initialActiveMonth': Date;
+    'inline': boolean;
     'isOpen'?: boolean;
     'numberOfCalendars': number;
     'startOnSundays'?: boolean;
@@ -119,6 +122,7 @@ export namespace Components {
     'fromDate'?: Date;
     'hideOutsiders'?: boolean;
     'initialActiveMonth'?: Date;
+    'inline'?: boolean;
     'isOpen'?: boolean;
     'numberOfCalendars'?: number;
     'onEndDateSet'?: (event: CustomEvent) => void;

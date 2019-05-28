@@ -14,6 +14,7 @@
 | `fromDate`           | --                    |             | `Date`    |
 | `hideOutsiders`      | `hide-outsiders`      |             | `boolean` |
 | `initialActiveMonth` | --                    |             | `Date`    |
+| `inline`             | `inline`              |             | `boolean` |
 | `isOpen`             | `is-open`             |             | `boolean` |
 | `numberOfCalendars`  | `number-of-calendars` |             | `number`  |
 | `startOnSundays`     | `start-on-sundays`    |             | `boolean` |

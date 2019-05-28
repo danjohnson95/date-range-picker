@@ -14,6 +14,7 @@
 | `hideOutsiders`     | `hide-outsiders`      |             | `boolean` |
 | `initialEndDate`    | `initial-end-date`    |             | `string`  |
 | `initialStartDate`  | `initial-start-date`  |             | `string`  |
+| `inline`            | `inline`              |             | `boolean` |
 | `numberOfCalendars` | `number-of-calendars` |             | `number`  |
 | `startOnSundays`    | `start-on-sundays`    |             | `boolean` |
 

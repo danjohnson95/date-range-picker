@@ -13,6 +13,7 @@ export class DateRangePicker {
   @Prop() hideOutsiders?: boolean = true;
   @Prop() disablePast?: boolean = true;
   @Prop() numberOfCalendars: number = 2;
+  @Prop() inline: boolean = false;
 
   @State() activeMonth: Date;
   @State() startDate: Date;
@@ -88,17 +89,24 @@ export class DateRangePicker {
     }
   }
 
+  renderInputElm () {
+    return (
+      <date-range-picker-input-elm
+        fromDate={this.startDate}
+        toDate={this.endDate}
+        startDateActive={this.startDateActive}
+        endDateActive={this.endDateActive}>
+      </date-range-picker-input-elm>
+    );
+  }
+
   render () {
     return (
       <div class="outer-range-picker">
-        <date-range-picker-input-elm
-          fromDate={this.startDate}
-          toDate={this.endDate}
-          startDateActive={this.startDateActive}
-          endDateActive={this.endDateActive}>
-        </date-range-picker-input-elm>
+        {! this.inline ? this.renderInputElm() : ''}
 
         <date-range-picker-popup
+            inline={this.inline}
             isOpen={this.isOpen}
             hideOutsiders={this.hideOutsiders}
             fromDate={this.startDate}

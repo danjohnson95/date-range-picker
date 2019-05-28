@@ -27,6 +27,14 @@
     display: none;
 }
 
+.outer-range-picker.inline:before, .outer-range-picker.inline:after {
+    border: 0;
+}
+
+.outer-range-picker.inline {
+    position: static;
+}
+
 .range-picker {
     display: flex;
     border: 1px solid #ccc;
