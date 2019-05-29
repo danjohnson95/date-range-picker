@@ -1,0 +1,16 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: docker build -t date-range-picker .
+  displayName: 'Build image'
+- script: docker run -v $(pwd)/dist:/opt/dist date-range-picker run build
+  displayName: 'Building assets'
