@@ -1,0 +1,6 @@
+.git
+.dist
+.stencil
+www
+*Dockerfile*
+node_modules
