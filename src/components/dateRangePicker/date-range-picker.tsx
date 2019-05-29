@@ -61,6 +61,11 @@ export class DateRangePicker {
     this.endDateActive = false;
     this.startDate = null;
     this.endDate = null;
+
+    this.input.emit({
+      startDate: this.startDate,
+      endDate: this.endDate
+    });
   }
 
   componentWillLoad () {
