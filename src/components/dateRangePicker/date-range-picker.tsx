@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, Listen, Method } from '@stencil/core';
 
 @Component({
   tag: 'date-range-picker',
@@ -53,6 +53,14 @@ export class DateRangePicker {
     this.isOpen = true;
     this.startDateActive = true;
     this.endDateActive = false;
+  }
+
+  @Method()
+  clear () {
+    this.startDateActive = false;
+    this.endDateActive = false;
+    this.startDate = null;
+    this.endDate = null;
   }
 
   componentWillLoad () {

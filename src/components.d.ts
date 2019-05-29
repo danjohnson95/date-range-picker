@@ -14,6 +14,7 @@ export namespace Components {
 
   interface DateRangePicker {
     'calendarStart'?: string;
+    'clear': () => void;
     'disablePast'?: boolean;
     'hideOutsiders'?: boolean;
     'initialEndDate'?: string;

@@ -24,6 +24,14 @@
 
   <table>
     <tr>
+      <td>Clear</td>
+      <td>
+        <button id="clear">
+          Clear
+        </button>
+      </td>
+    </tr>
+    <tr>
       <td>
         <strong><code>hide-outsiders</code></strong>
         <p>
@@ -82,6 +90,11 @@
     const startOnSundays = document.querySelector('#start-on-sundays');
     const numberOfCalendars = document.querySelector('#number-of-calendars');
     const disablePast = document.querySelector('#disable-past');
+    const clear = document.querySelector('#clear');
+
+    clear.addEventListener('click', function () {
+      rangePicker.clear();
+    });
 
     startOnSundays.addEventListener('change', function (val) {
       const state = val.target.checked;
