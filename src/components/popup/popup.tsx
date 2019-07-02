@@ -54,7 +54,7 @@ export class DateRangePickerPopup {
     if (this.isRangePartiallySet()) {
       this.maybeEndDate = event.detail
     }
-    
+
     if (this.isRangePartiallySet() && event.detail < this.toDate) {
       this.maybeStartDate = event.detail;
     }
