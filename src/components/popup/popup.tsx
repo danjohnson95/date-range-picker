@@ -88,7 +88,7 @@ export class DateRangePickerPopup {
   }
 
   private isRangeAllowed (date: Date): boolean {
-    return date > this.fromDate
+    return date >= this.fromDate
   }
 
   private moveMonth (forward: boolean = true): void {
