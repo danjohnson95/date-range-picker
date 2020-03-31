@@ -2,6 +2,7 @@
     font-size: 1em;
     border: 1px solid #ccc;
     display: inline-block;
+    background-color: #fff;
 }
 
 svg {

@@ -12,6 +12,16 @@ button {
     padding: 5px 9px;
     border-radius: 3px;
     outline: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+button:hover {
+    background-color: #eaeaea;
+}
+
+button:active {
+    background-color: #ccc;
 }
 
 button svg {

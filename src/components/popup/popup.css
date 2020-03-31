@@ -41,6 +41,6 @@
     border: 1px solid #ccc;
     background-color:#fff;
     padding: 1em 0;
-    position: fixed;
+    position: absolute;
     z-index: 2;
 }
