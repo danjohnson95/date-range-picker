@@ -170,7 +170,13 @@ export class MonthCalendar {
 
     // Go back to the previous Monday, or Sunday if mode enabled.
     const weekStart = (this.startOnSundays ? 0 : 1);
-    const currentDay = now.getDay();
+    let currentDay = now.getDay();
+
+    // If month starts on Sunday we need to treat currentDay as the last day of the week.
+    if (currentDay === 0 && weekStart === 1) {
+      currentDay = 7;
+    }
+
     const distance = weekStart - currentDay;
 
     now.setDate(now.getDate() + distance);
